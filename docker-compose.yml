@@ -1,0 +1,13 @@
+version: "3.3"
+
+services: 
+  supervision-hue:
+    image: harbor.comwork.io/supervision-hue:latest
+    container_name: supervision-hue
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    env_file: 
+      - .env
+    ports: 
+      - 8080:8080

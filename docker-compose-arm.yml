@@ -1,0 +1,14 @@
+version: "3.3"
+
+services: 
+  supervision-hue:
+    image: harbor.comwork.io/supervision-hue:latest-arm
+    container_name: supervision-hue
+    build: 
+      context: .
+      dockerfile: Dockerfile.arm
+      target: api
+    env_file: 
+      - .env
+    ports: 
+      - 8080:8080
