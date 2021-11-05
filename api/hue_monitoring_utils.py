@@ -33,11 +33,12 @@ def get_bridge_ip():
 
 def change_color(bri, color):
     r = requests.put("http://{}/api/{}/lights/{}/state".format(get_bridge_ip(), HUE_USERNAME, LIGHT_NUMBER), json = {"on": True, "sat": 254, "bri": bri, "hue": color})
-    print(r.content)
+    log_msg("DEBUG", "slack_message", r.content)
 
 def slack_message(emoji, channel, color, message, token, user):
   r = requests.post("https://hooks.slack.com/services/{}".format(token), json = {"channel": channel, "username": user, "icon_emoji": emoji, "attachments": [{"color": color, "text": message}]})
-  print(r.content)
+  log_msg("DEBUG", "slack_message", r.content)
+
 
 def appstatus_status(url, username, password):
    page=requests.get("{}?p=radiator".format(url), auth=(username, password))

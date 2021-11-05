@@ -7,6 +7,8 @@ import os
 
 from multiprocessing import Process
 
+from utils import log_msg
+
 HUE_USERNAME = os.environ['HUE_USERNAME']
 HUE_DISCOVERY_URL = os.environ['HUE_DISCOVERY_URL']
 
@@ -21,11 +23,11 @@ def get_bridge_ip():
     return ""
 
 def random_color():
-  return random.randint(0,65535)
+  return random.randint(0, 65535)
 
 def change_color(bri, color, light):
   r = requests.put("http://{}/api/{}/lights/{}/state".format(get_bridge_ip(), HUE_USERNAME, light), json = {"on": True, "sat": 254, "bri": bri, "hue": color})
-  print("color = {}, light = {}, response = {}".format(color, light, r.content))
+  log_msg("DEBUG", "change_color", "color = {}, light = {}, response = {}".format(color, light, r.content))
 
 def stop_party():
   change_color(0, 0, 1)

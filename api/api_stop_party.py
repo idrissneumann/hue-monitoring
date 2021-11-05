@@ -9,6 +9,12 @@ pid = os.getpid()
 class StopPartyEndPoint(Resource):
     def get(self):
         log_msg("INFO", "StopPartyEndPoint", "kill party_async_process")
-        party_async_process.terminate()
-        stop_party()
-        os._exit(1)
+        try:
+            party_async_process.terminate()
+            stop_party()
+            os._exit(1)
+        except AttributeError:
+            return {
+                "status": "ok",
+                "details": "no process to stop"
+            }
