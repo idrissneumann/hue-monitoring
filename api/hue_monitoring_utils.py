@@ -4,6 +4,7 @@ import json
 import os
 
 from lxml import html
+from utils import log_msg
 
 PRODIT_USERNAME=os.environ['PRODIT_USERNAME']
 PRODIT_PASSWORD=os.environ['PRODIT_PASSWORD']
@@ -11,6 +12,8 @@ HUE_USERNAME=os.environ['HUE_USERNAME']
 SLACK_COMWORK_TOKEN=os.environ['SLACK_COMWORK_TOKEN']
 LIGHT_NUMBER=os.environ['LIGHT_NUMBER']
 SLACK_UPRODIT_USERNAME=os.environ['SLACK_UPRODIT_USERNAME']
+PRODIT_UI_URL=os.environ['PRODIT_UI_URL']
+PRODIT_WS_URL=os.environ['PRODIT_WS_URL']
 
 HUE_COLOR_KO=2000
 HUE_COLOR_OK=30000
@@ -45,8 +48,9 @@ def appstatus_status(url, username, password):
 
 def check_uprodit():
   while True:
-    status = appstatus_status("https://www.uprodit.com/status", PRODIT_USERNAME, PRODIT_PASSWORD)
-    status = status and appstatus_status("http://91.121.80.56:8080/prodit-ws/status", PRODIT_USERNAME, PRODIT_PASSWORD)
+    log_msg("INFO", "HueMonitoring", "check {}".format(PRODIT_UI_URL))
+    status = appstatus_status("{}/status".format(PRODIT_UI_URL), PRODIT_USERNAME, PRODIT_PASSWORD)
+    status = status and appstatus_status("{}/status".format(PRODIT_WS_URL), PRODIT_USERNAME, PRODIT_PASSWORD)
 
     if status:
       change_color(HUE_BRI_OK, HUE_COLOR_OK)

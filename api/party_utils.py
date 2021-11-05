@@ -37,5 +37,7 @@ def go_party():
     change_color(HUE_BRI, random_color(), 3)
     time.sleep(0.7)
 
-global party_async_process 
-party_async_process = None
+party_async_process = Process( 
+    target=go_party,
+    daemon=True
+)
