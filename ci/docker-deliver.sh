@@ -25,6 +25,7 @@ echo "Building IMAGE=${IMAGE}, ARCH=${ARCH}, VERSION=${VERSION}"
 COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f "${docker_compose_file}" build "${IMAGE}"
 
 tag_and_push "latest" "${IMAGE}"
+tag_and_push "latest-arm" "${IMAGE}"
 tag_and_push "${VERSION}-${ARCH}" "${IMAGE}"
 tag_and_push "${VERSION}-${ARCH}-${CI_COMMIT_SHORT_SHA}" "${IMAGE}"
 
