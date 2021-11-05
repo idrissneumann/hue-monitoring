@@ -1,9 +1,9 @@
 version: "3.3"
 
 services: 
-  supervision-hue:
-    image: harbor.comwork.io/supervision-hue:latest
-    container_name: supervision-hue
+  hue-monitoring:
+    image: comworkio/hue-monitoring:latest
+    container_name: hue-monitoring
     build: 
       context: .
       dockerfile: Dockerfile

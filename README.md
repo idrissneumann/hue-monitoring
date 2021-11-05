@@ -4,4 +4,15 @@ Supervision of uprodit.com and some other apps based on PhilipsHue light and hos
 
 Also a funny party api is provided!
 
-## EndPoints
+## Table of content
+
+[[_TOC_]]
+
+## Git repositories
+
+* Main repo: https://gitlab.comwork.io/oss/imalive
+* Github mirror: https://github.com/idrissneumann/imalive.git
+* Gitlab mirror: https://gitlab.com/ineumann/imalive.git
+
+## Endpoints
+
