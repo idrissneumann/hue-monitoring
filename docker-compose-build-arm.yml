@@ -2,7 +2,7 @@ version: "3.3"
 
 services: 
   hue-monitoring:
-    image: comworkio/hue-monitoring:latest
+    image: comworkio/hue-monitoring:latest-arm
     build: 
       context: .
       dockerfile: Dockerfile.arm

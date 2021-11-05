@@ -6,10 +6,8 @@ ARCH="${1}"
 IMAGE="${2}"
 VERSION="${3}"
 
-[[ $ARCH ]] || ARCH="x86"
-
 tag_and_push() {
-  docker tag "${DOCKER_REGISTRY}/${2}:latest" "${DOCKER_REGISTRY}/${2}:${1}"
+  docker tag "${DOCKER_REGISTRY}/${2}:latest-${ARCH}" "${DOCKER_REGISTRY}/${2}:${1}"
   docker push "${DOCKER_REGISTRY}/${2}:${1}"
 }
 
@@ -19,15 +17,12 @@ git config --global user.name "${GIT_EMAIL}"
 sha="$(git rev-parse --short HEAD)"
 echo '{"version":"'"${VERSION}"'", "sha":"'"${sha}"'", "arch":"'"${ARCH}"'"}' > manifest.json
 
-docker_compose_file="docker-compose.yml"
-[[ -f docker-compose-build-${ARCH}.yml ]] && docker_compose_file="docker-compose-build-${ARCH}.yml"
+docker_compose_file="docker-compose-build-${ARCH}.yml"
 
 echo "${DOCKER_ACCESS_TOKEN}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
 
 COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose -f "${docker_compose_file}" build "${IMAGE}"
 
-[[ $ARCH == "x86" ]] && tag_and_push "latest" "${IMAGE}"
-[[ $ARCH == "x86" ]] && tag_and_push "${VERSION}" "${IMAGE}"
 tag_and_push "latest-${ARCH}" "${IMAGE}"
 tag_and_push "${VERSION}-${ARCH}" "${IMAGE}"
 tag_and_push "${VERSION}-${ARCH}-${CI_COMMIT_SHORT_SHA}" "${IMAGE}"
