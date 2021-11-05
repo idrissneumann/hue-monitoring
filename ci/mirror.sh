@@ -1,9 +1,8 @@
 #!/bin/bash
 
-REPO_PATH="/home/centos/github-dynamic-changelog/"
+REPO_PATH="/home/centos/hue-monitoring/"
 
-cd "${REPO_PATH}" && git pull origin main || :
-git push github main 
-git push internal main
-git push pgitlab main
+cd "${REPO_PATH}" && git pull origin master || :
+git push github master 
+git push pgitlab master
 exit 0
