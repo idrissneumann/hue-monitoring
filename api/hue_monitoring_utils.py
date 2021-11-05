@@ -6,15 +6,16 @@ import os
 from lxml import html
 from utils import log_msg, is_true
 
-PRODIT_USERNAME=os.environ['PRODIT_USERNAME']
-PRODIT_PASSWORD=os.environ['PRODIT_PASSWORD']
+APP_NAME=os.environ['APP_NAME']
+APP_USERNAME=os.environ['APP_USERNAME']
+APP_PASSWORD=os.environ['APP_PASSWORD']
 HUE_USERNAME=os.environ['HUE_USERNAME']
-SLACK_COMWORK_TOKEN=os.environ['SLACK_COMWORK_TOKEN']
+SLACK_TOKEN=os.environ['SLACK_TOKEN']
 LIGHT_NUMBER=os.environ['LIGHT_NUMBER']
-SLACK_UPRODIT_USERNAME=os.environ['SLACK_UPRODIT_USERNAME']
-PRODIT_UI_URL=os.environ['PRODIT_UI_URL']
-PRODIT_WS_URL=os.environ['PRODIT_WS_URL']
-ENABLE_PRODIT_MONITORING=os.environ['ENABLE_PRODIT_MONITORING']
+SLACK_USERNAME=os.environ['SLACK_USERNAME']
+APP_UI_URL=os.environ['APP_UI_URL']
+APP_WS_URL=os.environ['APP_WS_URL']
+ENABLE_MONITORING=os.environ['ENABLE_MONITORING']
 
 HUE_COLOR_KO=2000
 HUE_COLOR_OK=30000
@@ -44,15 +45,15 @@ def appstatus_status(url, username, password):
    val=tree.xpath('//a[@href="?p=status" and @class="btn btn-large btn-success"]/text()')
    result = len(val) >= 1
    if not result:
-      slack_message(":scream_cat:", "prod", "#BB0000", "There is a problem on uprodit, check the following page: {}".format(url), SLACK_COMWORK_TOKEN, SLACK_UPRODIT_USERNAME)
+      slack_message(":scream_cat:", "prod", "#BB0000", "There is a problem on the application {}, check the following page: {}".format(APP_NAME, url), SLACK_TOKEN, SLACK_USERNAME)
    return result
 
-def check_uprodit():
-  if is_true(ENABLE_PRODIT_MONITORING):
+def check_app():
+  if is_true(ENABLE_MONITORING):
     while True:
-      log_msg("INFO", "HueMonitoring", "check {}".format(PRODIT_UI_URL))
-      status = appstatus_status("{}/status".format(PRODIT_UI_URL), PRODIT_USERNAME, PRODIT_PASSWORD)
-      status = status and appstatus_status("{}/status".format(PRODIT_WS_URL), PRODIT_USERNAME, PRODIT_PASSWORD)
+      log_msg("INFO", "HueMonitoring", "check {}".format(APP_UI_URL))
+      status = appstatus_status("{}/status".format(APP_UI_URL), APP_USERNAME, APP_PASSWORD)
+      status = status and appstatus_status("{}/status".format(APP_WS_URL), APP_USERNAME, APP_PASSWORD)
 
       if status:
         change_color(HUE_BRI_OK, HUE_COLOR_OK)

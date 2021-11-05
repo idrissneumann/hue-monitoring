@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from multiprocessing import Process
 
-from hue_monitoring_utils import check_uprodit
+from hue_monitoring_utils import check_app
 from api_root import RootEndPoint
 from api_manifest import ManifestEndPoint
 from api_go_party import GoPartyEndPoint
@@ -12,7 +12,7 @@ app = Flask(__name__)
 api = Api(app)
 
 async_process = Process( 
-    target=check_uprodit,
+    target=check_app,
     daemon=True
 )
 async_process.start()

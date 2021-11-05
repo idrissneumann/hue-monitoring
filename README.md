@@ -1,6 +1,6 @@
 # Hue monitoring
 
-Supervision of uprodit.com and some other apps based on PhilipsHue light and hosted on raspberrypi.
+Monitoring of an [appstatus based webapp](https://github.com/appstatus/appstatus) and some other apps based on PhilipsHue light and hosted on raspberrypi.
 
 Also a funny party api is provided!
 

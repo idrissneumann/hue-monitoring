@@ -11,7 +11,7 @@ ENV PYTHONUNBUFFERED=1 \
     WERKZEUG_RUN_MAIN=true \
     MANIFEST_FILE_PATH=/manifest.json \
     WAIT_TIME=10 \
-    SLACK_UPRODIT_USERNAME=uprodit-hue-monitoring
+    SLACK_USERNAME=hue-monitoring
 
 COPY ./api ./manifest.json /
 
