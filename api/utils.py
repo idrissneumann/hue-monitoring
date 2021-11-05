@@ -17,4 +17,3 @@ def is_true (var):
         return var
     true_chars = ["true", "enabled", "enable", "ok", "on", "yes"]
     return is_not_empty(var) and any(c == var.lower() for c in true_chars)
-
