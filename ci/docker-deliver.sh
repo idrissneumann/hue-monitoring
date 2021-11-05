@@ -13,7 +13,7 @@ tag_and_push() {
   docker push "${DOCKER_REGISTRY}/${2}:${1}"
 }
 
-cd "${REPO_PATH}" && git pull origin main || : 
+cd "${REPO_PATH}" && git pull origin master || : 
 git config --global user.email "${GIT_EMAIL}"
 git config --global user.name "${GIT_EMAIL}"
 sha="$(git rev-parse --short HEAD)"
