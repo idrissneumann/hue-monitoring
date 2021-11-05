@@ -5,12 +5,11 @@ import random
 
 import os
 
+from multiprocessing import Process
+
 HUE_USERNAME = os.environ['HUE_USERNAME']
 
 HUE_BRI=254
-
-global stop_party
-stop_party=True
 
 def get_bridge_ip():
     page=requests.get("https://discovery.meethue.com/")
@@ -28,9 +27,7 @@ def change_color(bri, color, light):
     print("color = {}, light = {}, response = {}".format(color, light, r.content))
 
 def go_party():
-  global stop_party
-  stop_party = False
-  while not stop_party:
+  while True:
     change_color(0, 0, 1)
     change_color(0, 0, 2)
     change_color(0, 0, 3)
@@ -40,7 +37,5 @@ def go_party():
     change_color(HUE_BRI, random_color(), 3)
     time.sleep(0.7)
 
-
-def stop_party():
-  global stop_party
-  stop_party = True
+global party_async_process 
+party_async_process = None
