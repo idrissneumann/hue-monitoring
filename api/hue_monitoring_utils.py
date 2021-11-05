@@ -4,7 +4,7 @@ import json
 import os
 
 from lxml import html
-from utils import log_msg
+from utils import log_msg, is_true
 
 PRODIT_USERNAME=os.environ['PRODIT_USERNAME']
 PRODIT_PASSWORD=os.environ['PRODIT_PASSWORD']
@@ -14,6 +14,7 @@ LIGHT_NUMBER=os.environ['LIGHT_NUMBER']
 SLACK_UPRODIT_USERNAME=os.environ['SLACK_UPRODIT_USERNAME']
 PRODIT_UI_URL=os.environ['PRODIT_UI_URL']
 PRODIT_WS_URL=os.environ['PRODIT_WS_URL']
+ENABLE_PRODIT_MONITORING=os.environ['ENABLE_PRODIT_MONITORING']
 
 HUE_COLOR_KO=2000
 HUE_COLOR_OK=30000
@@ -47,12 +48,13 @@ def appstatus_status(url, username, password):
    return result
 
 def check_uprodit():
-  while True:
-    log_msg("INFO", "HueMonitoring", "check {}".format(PRODIT_UI_URL))
-    status = appstatus_status("{}/status".format(PRODIT_UI_URL), PRODIT_USERNAME, PRODIT_PASSWORD)
-    status = status and appstatus_status("{}/status".format(PRODIT_WS_URL), PRODIT_USERNAME, PRODIT_PASSWORD)
+  if is_true(ENABLE_PRODIT_MONITORING):
+    while True:
+      log_msg("INFO", "HueMonitoring", "check {}".format(PRODIT_UI_URL))
+      status = appstatus_status("{}/status".format(PRODIT_UI_URL), PRODIT_USERNAME, PRODIT_PASSWORD)
+      status = status and appstatus_status("{}/status".format(PRODIT_WS_URL), PRODIT_USERNAME, PRODIT_PASSWORD)
 
-    if status:
-      change_color(HUE_BRI_OK, HUE_COLOR_OK)
-    else:
-      change_color(HUE_BRI_KO, HUE_COLOR_KO)
+      if status:
+        change_color(HUE_BRI_OK, HUE_COLOR_OK)
+      else:
+        change_color(HUE_BRI_KO, HUE_COLOR_KO)
