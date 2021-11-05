@@ -27,11 +27,14 @@ def change_color(bri, color, light):
   r = requests.put("http://{}/api/{}/lights/{}/state".format(get_bridge_ip(), HUE_USERNAME, light), json = {"on": True, "sat": 254, "bri": bri, "hue": color})
   print("color = {}, light = {}, response = {}".format(color, light, r.content))
 
+def stop_party():
+  change_color(0, 0, 1)
+  change_color(0, 0, 2)
+  change_color(0, 0, 3)
+
 def go_party():
   while True:
-    change_color(0, 0, 1)
-    change_color(0, 0, 2)
-    change_color(0, 0, 3)
+    stop_party()
     time.sleep(0.3)
     change_color(HUE_BRI, random_color(), 1)
     change_color(HUE_BRI, random_color(), 2)
