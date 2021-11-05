@@ -14,6 +14,26 @@ Also a funny party api is provided!
 * Github mirror: https://github.com/idrissneumann/hue-monitoring.git
 * Gitlab mirror: https://gitlab.com/ineumann/hue-monitoring.git
 
+## Image on the dockerhub
+
+The image is available and versioned here: https://hub.docker.com/r/comworkio/hue-monitoring
+
+## Running with docker-compose
+
+First create your `.env` file from the `.env.example`:
+
+```shell
+cp .env.example .env
+```
+
+Then replace the values that needs to be replaced
+
+If you want to test on a raspberrypi or any other ARM device, use this command instead:
+
+```shell
+$ docker-compose -f docker-compose-arm.yml up
+```
+
 ## Endpoints
 
 ### Healthcheck
@@ -41,5 +61,4 @@ $ curl localhost:8080/v1/party
 
 ```shell
 $ curl localhost:8080/party/stop
-{"status": "ok"}
 ```
