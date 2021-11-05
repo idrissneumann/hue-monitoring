@@ -10,9 +10,36 @@ Also a funny party api is provided!
 
 ## Git repositories
 
-* Main repo: https://gitlab.comwork.io/oss/imalive
-* Github mirror: https://github.com/idrissneumann/imalive.git
-* Gitlab mirror: https://gitlab.com/ineumann/imalive.git
+* Main repo: https://gitlab.comwork.io/oss/hue-monitoring
+* Github mirror: https://github.com/idrissneumann/hue-monitoring.git
+* Gitlab mirror: https://gitlab.com/ineumann/hue-monitoring.git
 
 ## Endpoints
 
+### Healthcheck
+
+```shell
+$ curl localhost:8080/
+{"status": "ok", "alive": true}
+```
+
+### Manifests
+
+```shell
+$ curl localhost:8080/v1/manifest 
+{"version": "1.0", "sha": "1c7cb1f", "arch": "x86"}
+```
+
+### Start the party
+
+```shell
+$ curl localhost:8080/v1/party
+{"status": "ok"}
+```
+
+### Stop the party
+
+```shell
+$ curl localhost:8080/party/stop
+{"status": "ok"}
+```

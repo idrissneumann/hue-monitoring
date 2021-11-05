@@ -17,7 +17,7 @@ api_arm:
     - setsid ./ci/docker-deliver.sh "arm" "hue-monitoring" "1.0"
   only:
     refs:
-      - /^(main.*)$/
+      - /^(master.*)$/
     changes:
       - .gitlab-ci.yml
       - api/*
