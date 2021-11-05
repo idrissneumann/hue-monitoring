@@ -8,7 +8,8 @@ from lxml import html
 PRODIT_USERNAME=os.environ['PRODIT_USERNAME']
 PRODIT_PASSWORD=os.environ['PRODIT_PASSWORD']
 HUE_USERNAME=os.environ['HUE_USERNAME']
-SLACK_COMWORK_TOKEN=os.environ
+SLACK_COMWORK_TOKEN=os.environ['SLACK_COMWORK_TOKEN']
+LIGHT_NUMBER=os.environ['LIGHT_NUMBER']
 SLACK_UPRODIT_USERNAME="uprodit-supervision"
 
 HUE_COLOR_KO=2000
@@ -26,7 +27,7 @@ def get_bridge_ip():
       return ""
 
 def change_color(bri, color):
-    r = requests.put("http://{}/api/{}/lights/1/state".format(get_bridge_ip(), HUE_USERNAME), json = {"on": True, "sat": 254, "bri": bri, "hue": color})
+    r = requests.put("http://{}/api/{}/lights/{}/state".format(get_bridge_ip(), HUE_USERNAME, LIGHT_NUMBER), json = {"on": True, "sat": 254, "bri": bri, "hue": color})
     print(r.content)
 
 def slack_message(emoji, channel, color, message, token, user):

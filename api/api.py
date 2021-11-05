@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from multiprocessing import Process
 
-from supervision_utils import check_uprodit
+from hue_monitoring_utils import check_uprodit
 from api_root import RootEndPoint
 from api_manifest import ManifestEndPoint
 from api_go_party import GoPartyEndPoint

@@ -1,5 +1,7 @@
-# supervision-hue
+# Hue monitoring
 
-Projet de supervision basée sur des lampes philipshue et déployé sur raspberry pi.
+Supervision of uprodit.com and some other apps based on PhilipsHue light and hosted on raspberrypi.
+
+Also a funny party api is provided!
 
 ## EndPoints
