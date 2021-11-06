@@ -14,7 +14,7 @@ mirror:
 api_arm:
   stage: deliver
   script:
-    - setsid ./ci/docker-deliver.sh "hue-monitoring" "1.6"
+    - setsid ./ci/docker-deliver.sh "hue-monitoring" "1.7"
   only:
     refs:
       - /^(master.*)$/

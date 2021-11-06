@@ -10,7 +10,7 @@ APP_NAME=os.environ['APP_NAME']
 APP_USERNAME=os.environ['APP_USERNAME']
 APP_PASSWORD=os.environ['APP_PASSWORD']
 HUE_USERNAME=os.environ['HUE_USERNAME']
-HUE_LIGHTS_COUNT = int(os.environ['HUE_LIGHTS_COUNT'])
+HUE_MONITOR_LIGHTS_NUMBERS=os.environ['HUE_MONITOR_LIGHTS_NUMBERS'].split(",")
 SLACK_TOKEN=os.environ['SLACK_TOKEN']
 SLACK_USERNAME=os.environ['SLACK_USERNAME']
 APP_UI_URL=os.environ['APP_UI_URL']
@@ -32,7 +32,7 @@ def get_bridge_ip():
       return ""
 
 def change_color(bri, color):
-    for i in range(1, HUE_LIGHTS_COUNT):
+    for i in HUE_MONITOR_LIGHTS_NUMBERS:
       r = requests.put("http://{}/api/{}/lights/{}/state".format(get_bridge_ip(), HUE_USERNAME, i), json = {"on": True, "sat": 254, "bri": bri, "hue": color})
       log_msg("DEBUG", "slack_message", r.content)
 
