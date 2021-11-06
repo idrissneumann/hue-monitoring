@@ -26,13 +26,27 @@ First create your `.env` file from the `.env.example`:
 cp .env.example .env
 ```
 
-Then replace the values that needs to be replaced
+Then replace the values that needs to be replaced (go check the "Environment variables" section below).
 
 If you want to test on a raspberrypi or any other ARM device, use this command instead:
 
 ```shell
 $ docker-compose -f docker-compose-arm.yml up
 ```
+
+## Environment variables
+
+* `APP_NAME`: your application name that will appear in the logs
+* `APP_USERNAME`: basic auth username for appstatus access
+* `APP_PASSWORD`: basic auth password for appstatus access
+* `HUE_USERNAME`: local philipshue username on your bridge
+* `SLACK_TOKEN`: slack token
+* `SLACK_USERNAME`: slack username that will appear in the logs
+* `HUE_LIGHTS_COUNT`: number of philipshue lights you've got
+* `HUE_MONITOR_LIGHTS_IDS`: list of philipshue lights ids you want to use to show your application status
+* `APP_UI_URL`: your frontend url that exposes appstatus
+* `APP_WS_URL`: your backend url that exposes appstatus
+* `ENABLE_MONITORING`: enable monitoring (`true` or `false`)
 
 ## Endpoints
 
