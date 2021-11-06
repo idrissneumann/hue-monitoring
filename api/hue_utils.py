@@ -3,7 +3,7 @@ import requests
 import os
 import json
 
-from utils import log_msg, is_true
+from utils import log_msg
 
 HUE_USERNAME=os.environ['HUE_USERNAME']
 HUE_LIGHTS_COUNT = int(os.environ['HUE_LIGHTS_COUNT'])
@@ -24,7 +24,13 @@ def get_bridge_ip():
     else:
       return ""
 
-def change_color(on, bri, color):
-    for i in HUE_MONITOR_LIGHTS_IDS:
-      r = requests.put("http://{}/api/{}/lights/{}/state".format(get_bridge_ip(), HUE_USERNAME, i), json = {"on": on, "sat": 254, "bri": bri, "hue": color})
-      log_msg("DEBUG", "change_color", r.content)
+def hue_state(on, bri, color, light_id):
+    r = requests.put("http://{}/api/{}/lights/{}/state".format(get_bridge_ip(), HUE_USERNAME, light_id), json = {"on": on, "sat": 254, "bri": bri, "hue": color})
+    log_msg("DEBUG", "hue_state", r.content)
+
+def hue_states(on, bri, color):
+    for i in range(1, HUE_LIGHTS_COUNT):
+      hue_state(on, bri, color, i)
+
+def change_color(bri, color, light_id):
+    hue_state(True, bri, color, light_id)

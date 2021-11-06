@@ -1,11 +1,10 @@
 import requests
-import json
 
 import os
 
 from lxml import html
 from utils import log_msg, is_true
-from hue_utils import get_bridge_ip, HUE_USERNAME, HUE_MONITOR_LIGHTS_IDS, HUE_BRI_KO, HUE_BRI_OK, HUE_COLOR_KO, HUE_COLOR_OK
+from hue_utils import change_color, HUE_USERNAME, HUE_MONITOR_LIGHTS_IDS, HUE_BRI_KO, HUE_BRI_OK, HUE_COLOR_KO, HUE_COLOR_OK
 
 APP_NAME=os.environ['APP_NAME']
 APP_USERNAME=os.environ['APP_USERNAME']
@@ -16,10 +15,9 @@ APP_UI_URL=os.environ['APP_UI_URL']
 APP_WS_URL=os.environ['APP_WS_URL']
 ENABLE_MONITORING=os.environ['ENABLE_MONITORING']
 
-def change_color(bri, color):
+def change_colors(bri, color):
     for i in HUE_MONITOR_LIGHTS_IDS:
-      r = requests.put("http://{}/api/{}/lights/{}/state".format(get_bridge_ip(), HUE_USERNAME, i), json = {"on": True, "sat": 254, "bri": bri, "hue": color})
-      log_msg("DEBUG", "change_color", r.content)
+      change_color(bri, color, i)
 
 def slack_message(emoji, channel, color, message, token, user):
   r = requests.post("https://hooks.slack.com/services/{}".format(token), json = {"channel": channel, "username": user, "icon_emoji": emoji, "attachments": [{"color": color, "text": message}]})
@@ -43,6 +41,6 @@ def check_app():
       status = status and appstatus_status("{}/status".format(APP_WS_URL), APP_USERNAME, APP_PASSWORD)
 
       if status:
-        change_color(HUE_BRI_OK, HUE_COLOR_OK)
+        change_colors(HUE_BRI_OK, HUE_COLOR_OK)
       else:
-        change_color(HUE_BRI_KO, HUE_COLOR_KO)
+        change_colors(HUE_BRI_KO, HUE_COLOR_KO)

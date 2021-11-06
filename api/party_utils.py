@@ -1,20 +1,14 @@
-import requests
 import time
 import random
 
 from multiprocessing import Process
 
-from utils import log_msg
-from hue_utils import get_bridge_ip, HUE_USERNAME, HUE_LIGHTS_COUNT
+from hue_utils import change_color, HUE_USERNAME, HUE_LIGHTS_COUNT
 
 HUE_BRI=254
 
 def random_color():
   return random.randint(0, 65535)
-
-def change_color(bri, color, light):
-  r = requests.put("http://{}/api/{}/lights/{}/state".format(get_bridge_ip(), HUE_USERNAME, light), json = {"on": True, "sat": 254, "bri": bri, "hue": color})
-  log_msg("DEBUG", "change_color", "color = {}, light = {}, response = {}".format(color, light, r.content))
 
 def stop_party():
   for i in range(1, HUE_LIGHTS_COUNT):
