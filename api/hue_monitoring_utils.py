@@ -34,7 +34,7 @@ def get_bridge_ip():
 def change_color(bri, color):
     for i in HUE_MONITOR_LIGHTS_IDS:
       r = requests.put("http://{}/api/{}/lights/{}/state".format(get_bridge_ip(), HUE_USERNAME, i), json = {"on": True, "sat": 254, "bri": bri, "hue": color})
-      log_msg("DEBUG", "slack_message", r.content)
+      log_msg("DEBUG", "change_color", r.content)
 
 def slack_message(emoji, channel, color, message, token, user):
   r = requests.post("https://hooks.slack.com/services/{}".format(token), json = {"channel": channel, "username": user, "icon_emoji": emoji, "attachments": [{"color": color, "text": message}]})
