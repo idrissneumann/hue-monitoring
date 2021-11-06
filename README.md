@@ -77,6 +77,13 @@ $ curl localhost:8080/v1/party
 $ curl localhost:8080/party/stop
 ```
 
+### Turn on the lights
+
+```shell
+$ curl localhost:8080/v1/lights/off
+{"status": "ok"}
+```
+
 ### Turn off the lights
 
 ```shell
