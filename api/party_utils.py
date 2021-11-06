@@ -31,14 +31,14 @@ def change_color(bri, color, light):
   log_msg("DEBUG", "change_color", "color = {}, light = {}, response = {}".format(color, light, r.content))
 
 def stop_party():
-  for i in range(1, HUE_LIGHT_COUNT):
+  for i in range(1, HUE_LIGHTS_COUNT):
     change_color(0, 0, i)
 
 def go_party():
   while True:
     stop_party()
     time.sleep(0.3)
-    for i in range(1, HUE_LIGHT_COUNT):
+    for i in range(1, HUE_LIGHTS_COUNT):
       change_color(HUE_BRI, random_color(), i)
     time.sleep(0.7)
 
