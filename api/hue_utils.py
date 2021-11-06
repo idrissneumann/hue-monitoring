@@ -40,4 +40,4 @@ def switch_off():
   hue_states(False, 0, 0)
 
 def switch_on():
-  hue_states(False, HUE_BRI_OK, HUE_COLOR_ON)
+  hue_states(True, HUE_BRI_OK, HUE_COLOR_ON)
