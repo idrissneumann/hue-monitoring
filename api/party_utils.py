@@ -7,20 +7,21 @@ import os
 
 from multiprocessing import Process
 
-from utils import log_msg
+from utils import log_msg, is_not_empty
 
 HUE_USERNAME = os.environ['HUE_USERNAME']
 HUE_DISCOVERY_URL = os.environ['HUE_DISCOVERY_URL']
+HUE_LIGHT_COUNT = int(os.environ['HUE_LIGHT_COUNT'])
 
 HUE_BRI=254
 
 def get_bridge_ip():
   page=requests.get(HUE_DISCOVERY_URL)
   payload = json.loads(page.content)
-  if len(payload) >= 1:
+  if is_not_empty(payload):
     return payload[0]['internalipaddress']
-  else:
-    return ""
+  
+  return ""
 
 def random_color():
   return random.randint(0, 65535)
@@ -30,17 +31,15 @@ def change_color(bri, color, light):
   log_msg("DEBUG", "change_color", "color = {}, light = {}, response = {}".format(color, light, r.content))
 
 def stop_party():
-  change_color(0, 0, 1)
-  change_color(0, 0, 2)
-  change_color(0, 0, 3)
+  for i in range(1, HUE_LIGHT_COUNT):
+    change_color(0, 0, i)
 
 def go_party():
   while True:
     stop_party()
     time.sleep(0.3)
-    change_color(HUE_BRI, random_color(), 1)
-    change_color(HUE_BRI, random_color(), 2)
-    change_color(HUE_BRI, random_color(), 3)
+    for i in range(1, HUE_LIGHT_COUNT):
+      change_color(HUE_BRI, random_color(), i)
     time.sleep(0.7)
 
 party_async_process = Process( 
