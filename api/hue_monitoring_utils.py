@@ -10,8 +10,8 @@ APP_NAME=os.environ['APP_NAME']
 APP_USERNAME=os.environ['APP_USERNAME']
 APP_PASSWORD=os.environ['APP_PASSWORD']
 HUE_USERNAME=os.environ['HUE_USERNAME']
+HUE_LIGHTS_COUNT = int(os.environ['HUE_LIGHTS_COUNT'])
 SLACK_TOKEN=os.environ['SLACK_TOKEN']
-LIGHT_NUMBER=os.environ['LIGHT_NUMBER']
 SLACK_USERNAME=os.environ['SLACK_USERNAME']
 APP_UI_URL=os.environ['APP_UI_URL']
 APP_WS_URL=os.environ['APP_WS_URL']
@@ -32,8 +32,9 @@ def get_bridge_ip():
       return ""
 
 def change_color(bri, color):
-    r = requests.put("http://{}/api/{}/lights/{}/state".format(get_bridge_ip(), HUE_USERNAME, LIGHT_NUMBER), json = {"on": True, "sat": 254, "bri": bri, "hue": color})
-    log_msg("DEBUG", "slack_message", r.content)
+    for i in range(1, HUE_LIGHTS_COUNT):
+      r = requests.put("http://{}/api/{}/lights/{}/state".format(get_bridge_ip(), HUE_USERNAME, i), json = {"on": True, "sat": 254, "bri": bri, "hue": color})
+      log_msg("DEBUG", "slack_message", r.content)
 
 def slack_message(emoji, channel, color, message, token, user):
   r = requests.post("https://hooks.slack.com/services/{}".format(token), json = {"channel": channel, "username": user, "icon_emoji": emoji, "attachments": [{"color": color, "text": message}]})

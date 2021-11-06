@@ -11,7 +11,7 @@ from utils import log_msg, is_not_empty
 
 HUE_USERNAME = os.environ['HUE_USERNAME']
 HUE_DISCOVERY_URL = os.environ['HUE_DISCOVERY_URL']
-HUE_LIGHT_COUNT = int(os.environ['HUE_LIGHT_COUNT'])
+HUE_LIGHTS_COUNT = int(os.environ['HUE_LIGHTS_COUNT'])
 
 HUE_BRI=254
 
