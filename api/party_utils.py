@@ -1,27 +1,13 @@
 import requests
-import json
 import time
 import random
 
-import os
-
 from multiprocessing import Process
 
-from utils import log_msg, is_not_empty
-
-HUE_USERNAME = os.environ['HUE_USERNAME']
-HUE_DISCOVERY_URL = os.environ['HUE_DISCOVERY_URL']
-HUE_LIGHTS_COUNT = int(os.environ['HUE_LIGHTS_COUNT'])
+from utils import log_msg
+from hue_utils import get_bridge_ip, HUE_USERNAME, HUE_LIGHTS_COUNT
 
 HUE_BRI=254
-
-def get_bridge_ip():
-  page=requests.get(HUE_DISCOVERY_URL)
-  payload = json.loads(page.content)
-  if len(payload) >= 1:
-    return payload[0]['internalipaddress']
-  
-  return ""
 
 def random_color():
   return random.randint(0, 65535)

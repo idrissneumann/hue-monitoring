@@ -5,31 +5,16 @@ import os
 
 from lxml import html
 from utils import log_msg, is_true
+from hue_utils import get_bridge_ip, HUE_USERNAME, HUE_MONITOR_LIGHTS_IDS, HUE_BRI_KO, HUE_BRI_OK, HUE_COLOR_KO, HUE_COLOR_OK
 
 APP_NAME=os.environ['APP_NAME']
 APP_USERNAME=os.environ['APP_USERNAME']
 APP_PASSWORD=os.environ['APP_PASSWORD']
-HUE_USERNAME=os.environ['HUE_USERNAME']
-HUE_MONITOR_LIGHTS_IDS=os.environ['HUE_MONITOR_LIGHTS_IDS'].split(",")
 SLACK_TOKEN=os.environ['SLACK_TOKEN']
 SLACK_USERNAME=os.environ['SLACK_USERNAME']
 APP_UI_URL=os.environ['APP_UI_URL']
 APP_WS_URL=os.environ['APP_WS_URL']
 ENABLE_MONITORING=os.environ['ENABLE_MONITORING']
-
-HUE_COLOR_KO=2000
-HUE_COLOR_OK=30000
-
-HUE_BRI_OK=20
-HUE_BRI_KO=254
-
-def get_bridge_ip():
-    page=requests.get("https://discovery.meethue.com/")
-    payload = json.loads(page.content)
-    if len(payload) >= 1:
-      return payload[0]['internalipaddress']
-    else:
-      return ""
 
 def change_color(bri, color):
     for i in HUE_MONITOR_LIGHTS_IDS:
