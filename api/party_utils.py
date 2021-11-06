@@ -18,7 +18,7 @@ HUE_BRI=254
 def get_bridge_ip():
   page=requests.get(HUE_DISCOVERY_URL)
   payload = json.loads(page.content)
-  if is_not_empty(payload):
+  if len(payload) >= 1:
     return payload[0]['internalipaddress']
   
   return ""
