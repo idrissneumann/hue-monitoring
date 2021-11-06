@@ -34,3 +34,6 @@ def hue_states(on, bri, color):
 
 def change_color(bri, color, light_id):
     hue_state(True, bri, color, light_id)
+
+def switch_off():
+    hue_states(False, 0, 0)

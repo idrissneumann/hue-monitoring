@@ -1,19 +1,12 @@
 from flask_restful import Resource
 
-import os
-
-from party_utils import party_async_process, stop_party
 from utils import log_msg
+from hue_utils import switch_off
 
-class StopPartyEndPoint(Resource):
+class StopLightsEndPoint(Resource):
     def get(self):
-        log_msg("INFO", "StopPartyEndPoint", "kill party_async_process")
-        try:
-            party_async_process.terminate()
-            stop_party()
-            os._exit(1)
-        except AttributeError:
-            return {
-                "status": "ok",
-                "details": "no process to stop"
-            }
+        log_msg("INFO", "StopLights", "turn of lights")
+        switch_off()
+        return {
+            "status": "ok"
+        }
