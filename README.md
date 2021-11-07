@@ -2,6 +2,8 @@
 
 Monitoring of an [appstatus based webapp](https://github.com/appstatus/appstatus) and some other apps based on PhilipsHue light and hosted on raspberrypi.
 
+![hue-monitoring](./img/hue-monitoring.jpeg)
+
 Also a funny party api is provided!
 
 ## Table of content
