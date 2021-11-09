@@ -11,6 +11,7 @@ ENV PYTHONUNBUFFERED=1 \
     WERKZEUG_RUN_MAIN=true \
     MANIFEST_FILE_PATH=/manifest.json \
     WAIT_TIME=10 \
+    ERROR_WAIT_TIME=2 \
     SLACK_USERNAME=hue-monitoring \
     HUE_DISCOVERY_URL=https://discovery.meethue.com
 

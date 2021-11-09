@@ -1,8 +1,10 @@
 import requests
 
 import os
+import sys
 
 from lxml import html
+from time import sleep
 from utils import log_msg, is_true
 from hue_utils import change_color, HUE_USERNAME, HUE_MONITOR_LIGHTS_IDS, HUE_BRI_KO, HUE_BRI_OK, HUE_COLOR_KO, HUE_COLOR_OK
 
@@ -14,6 +16,7 @@ SLACK_USERNAME=os.environ['SLACK_USERNAME']
 APP_UI_URL=os.environ['APP_UI_URL']
 APP_WS_URL=os.environ['APP_WS_URL']
 ENABLE_MONITORING=os.environ['ENABLE_MONITORING']
+ERROR_WAIT_TIME=int(os.environ['ERROR_WAIT_TIME'])
 
 def change_colors(bri, color):
     for i in HUE_MONITOR_LIGHTS_IDS:
@@ -36,11 +39,15 @@ def appstatus_status(url, username, password):
 def check_app():
   if is_true(ENABLE_MONITORING):
     while True:
-      log_msg("INFO", "HueMonitoring", "check {}".format(APP_UI_URL))
-      status = appstatus_status("{}/status".format(APP_UI_URL), APP_USERNAME, APP_PASSWORD)
-      status = status and appstatus_status("{}/status".format(APP_WS_URL), APP_USERNAME, APP_PASSWORD)
+      try:
+        log_msg("INFO", "HueMonitoring", "check {}".format(APP_UI_URL))
+        status = appstatus_status("{}/status".format(APP_UI_URL), APP_USERNAME, APP_PASSWORD)
+        status = status and appstatus_status("{}/status".format(APP_WS_URL), APP_USERNAME, APP_PASSWORD)
 
-      if status:
-        change_colors(HUE_BRI_OK, HUE_COLOR_OK)
-      else:
-        change_colors(HUE_BRI_KO, HUE_COLOR_KO)
+        if status:
+          change_colors(HUE_BRI_OK, HUE_COLOR_OK)
+        else:
+          change_colors(HUE_BRI_KO, HUE_COLOR_KO)
+      except:
+        log_msg("error", "Unexpected error on indices loop = {}".format(sys.exc_info()[0]))
+        sleep(ERROR_WAIT_TIME)
