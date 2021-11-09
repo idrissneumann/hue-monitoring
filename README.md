@@ -4,7 +4,7 @@ Monitoring of an [appstatus based webapp](https://github.com/appstatus/appstatus
 
 ![hue-monitoring](./img/hue-monitoring.jpeg)
 
-Also a funny party api is provided!
+Also a funny party and on/off api are provided!
 
 ## Table of content
 
