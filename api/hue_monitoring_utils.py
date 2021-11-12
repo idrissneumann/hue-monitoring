@@ -49,5 +49,5 @@ def check_app():
         else:
           change_colors(HUE_BRI_KO, HUE_COLOR_KO)
       except:
-        log_msg("error", "Unexpected error on indices loop = {}".format(sys.exc_info()[0]))
+        log_msg("ERROR", "check_app", "Unexpected error on indices loop = {}".format(sys.exc_info()[0]))
         sleep(ERROR_WAIT_TIME)
