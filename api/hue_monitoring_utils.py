@@ -13,8 +13,7 @@ APP_USERNAME=os.environ['APP_USERNAME']
 APP_PASSWORD=os.environ['APP_PASSWORD']
 SLACK_TOKEN=os.environ['SLACK_TOKEN']
 SLACK_USERNAME=os.environ['SLACK_USERNAME']
-APP_UI_URL=os.environ['APP_UI_URL']
-APP_WS_URL=os.environ['APP_WS_URL']
+APP_URLS=os.environ['APP_URLS'].split(",")
 ENABLE_MONITORING=os.environ['ENABLE_MONITORING']
 ERROR_WAIT_TIME=int(os.environ['ERROR_WAIT_TIME'])
 
@@ -38,11 +37,12 @@ def appstatus_status(url, username, password):
 
 def check_app():
   if is_true(ENABLE_MONITORING):
+    status = True
     while True:
       try:
-        log_msg("INFO", "HueMonitoring", "check {}".format(APP_UI_URL))
-        status = appstatus_status("{}/status".format(APP_UI_URL), APP_USERNAME, APP_PASSWORD)
-        status = status and appstatus_status("{}/status".format(APP_WS_URL), APP_USERNAME, APP_PASSWORD)
+        for app in APP_URLS:
+          log_msg("INFO", "HueMonitoring", "check {}".format(app))
+          status = status and appstatus_status("{}/status".format(app), APP_USERNAME, APP_PASSWORD)
 
         if status:
           change_colors(HUE_BRI_OK, HUE_COLOR_OK)

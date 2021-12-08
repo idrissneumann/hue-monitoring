@@ -46,9 +46,26 @@ $ docker-compose -f docker-compose-arm.yml up
 * `SLACK_USERNAME`: slack username that will appear in the logs
 * `HUE_LIGHTS_COUNT`: number of philipshue lights you've got
 * `HUE_MONITOR_LIGHTS_IDS`: list of philipshue lights ids you want to use to show your application status
-* `APP_UI_URL`: your frontend url that exposes appstatus
-* `APP_WS_URL`: your backend url that exposes appstatus
+* `APPS_URL`: list of apps that exposes appstatus on `/status` endpoint
 * `ENABLE_MONITORING`: enable monitoring (`true` or `false`)
+
+## AppStatus compliance
+
+In order to comply with appstatus, your application needs to expose a `/status?p=radiator` endpoint with the following body response when everything is okay:
+
+```html
+<html>
+<body><p><a href="?p=status" class="btn btn-large btn-success">Status</a></p></body>
+</html>
+```
+
+Or the following body response when something is ko:
+
+```html
+<html>
+<body><p><a href="?p=status" class="btn btn-large btn-failure">Status</a></p></body>
+</html>
+```
 
 ## Endpoints
 
