@@ -38,9 +38,9 @@ def appstatus_status(url, username, password):
 
 def check_app():
   if is_true(ENABLE_MONITORING):
-    status = True
     while True:
       try:
+        status = True
         for app in APP_URLS:
           log_msg("INFO", "HueMonitoring", "check {}".format(app))
           status = status and appstatus_status("{}/status".format(app), APP_USERNAME, APP_PASSWORD)
