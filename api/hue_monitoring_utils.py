@@ -13,6 +13,7 @@ APP_USERNAME=os.environ['APP_USERNAME']
 APP_PASSWORD=os.environ['APP_PASSWORD']
 SLACK_TOKEN=os.environ['SLACK_TOKEN']
 SLACK_USERNAME=os.environ['SLACK_USERNAME']
+SLACK_CHANNEL=os.environ['SLACK_CHANNEL']
 APP_URLS=os.environ['APP_URLS'].split(",")
 ENABLE_MONITORING=os.environ['ENABLE_MONITORING']
 ERROR_WAIT_TIME=int(os.environ['ERROR_WAIT_TIME'])
@@ -32,7 +33,7 @@ def appstatus_status(url, username, password):
    val=tree.xpath('//a[@href="?p=status" and @class="btn btn-large btn-success"]/text()')
    result = len(val) >= 1
    if not result:
-      slack_message(":scream_cat:", "prod", "#BB0000", "There is a problem on the application {}, check the following page: {}".format(APP_NAME, url), SLACK_TOKEN, SLACK_USERNAME)
+      slack_message(":scream_cat:", SLACK_CHANNEL, "#BB0000", "There is a problem on the application {}, check the following page: {}".format(APP_NAME, url), SLACK_TOKEN, SLACK_USERNAME)
    return result
 
 def check_app():

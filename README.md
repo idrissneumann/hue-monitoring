@@ -44,6 +44,7 @@ $ docker-compose -f docker-compose-arm.yml up
 * `HUE_USERNAME`: local philipshue username on your bridge
 * `SLACK_TOKEN`: slack token
 * `SLACK_USERNAME`: slack username that will appear in the logs
+* `SLACK_CHANNEL`: slack channel
 * `HUE_LIGHTS_COUNT`: number of philipshue lights you've got
 * `HUE_MONITOR_LIGHTS_IDS`: list of philipshue lights ids you want to use to show your application status
 * `APPS_URL`: list of apps that exposes appstatus on `/status` endpoint
