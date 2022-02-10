@@ -15,6 +15,7 @@ Also a funny party and on/off api are provided!
 * Main repo: https://gitlab.comwork.io/oss/hue-monitoring
 * Github mirror: https://github.com/idrissneumann/hue-monitoring.git
 * Gitlab mirror: https://gitlab.com/ineumann/hue-monitoring.git
+* Bitbucket mirror: https://bitbucket.org/idrissneumann/hue-monitoring.git
 
 ## Image on the dockerhub
 
